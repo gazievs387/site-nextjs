@@ -1,4 +1,3 @@
-import { Analytics } from "@/components/Analytics";
 import { PageStyles } from "@/components/PageStyles";
 import { StaticMarkup } from "@/components/StaticMarkup";
 import { StructuredData } from "@/components/StructuredData";
@@ -14,7 +13,6 @@ export default function InfoPage() {
     <>
       <PageStyles stylesheet="/static/css/info.css" preconnectFonts />
       <StaticMarkup html={readPageMarkup("info")} />
-      <Analytics counterId={101282540} />
       <StructuredData page={pageSeo.info} />
     </>
   );

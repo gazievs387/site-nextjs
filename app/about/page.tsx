@@ -1,4 +1,3 @@
-import { Analytics } from "@/components/Analytics";
 import { PageStyles } from "@/components/PageStyles";
 import { StaticMarkup } from "@/components/StaticMarkup";
 import { StructuredData } from "@/components/StructuredData";
@@ -16,7 +15,6 @@ export default function AboutPage() {
       <PageStyles stylesheet="/static/css/info.css" preconnectFonts />
       <StaticMarkup html={readPageMarkup("about")} />
       <YandexMap />
-      <Analytics counterId={101282540} />
       <StructuredData page={pageSeo.about} />
     </>
   );

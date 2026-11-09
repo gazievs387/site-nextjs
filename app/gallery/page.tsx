@@ -1,4 +1,3 @@
-import { Analytics } from "@/components/Analytics";
 import { PageStyles } from "@/components/PageStyles";
 import { StaticMarkup } from "@/components/StaticMarkup";
 import { StructuredData } from "@/components/StructuredData";
@@ -14,7 +13,6 @@ export default function GalleryPage() {
     <>
       <PageStyles stylesheet="/static/css/gallery.css" />
       <StaticMarkup html={markupWithData("gallery")} />
-      <Analytics counterId={101593822} />
       <StructuredData page={pageSeo.gallery} />
     </>
   );

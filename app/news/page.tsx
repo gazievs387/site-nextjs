@@ -1,4 +1,3 @@
-import { Analytics } from "@/components/Analytics";
 import { PageStyles } from "@/components/PageStyles";
 import { StaticMarkup } from "@/components/StaticMarkup";
 import { StructuredData } from "@/components/StructuredData";
@@ -13,7 +12,6 @@ export default function NewsPage() {
     <>
       <PageStyles stylesheet="/static/css/news.css" />
       <StaticMarkup html={markupWithData("news")} />
-      <Analytics counterId={101282540} />
       <StructuredData page={pageSeo.news} />
     </>
   );

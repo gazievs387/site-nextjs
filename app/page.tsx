@@ -1,5 +1,4 @@
 import Script from "next/script";
-import { Analytics } from "@/components/Analytics";
 import { BnovoWidget } from "@/components/BnovoWidget";
 import { PageStyles } from "@/components/PageStyles";
 import { StaticMarkup } from "@/components/StaticMarkup";
@@ -22,7 +21,6 @@ export default function HomePage() {
       <StaticMarkup html={readPageMarkup("home")} />
       <BnovoWidget />
       <YandexMap />
-      <Analytics counterId={101282540} />
       <StructuredData page={pageSeo.home} />
       <Script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
