@@ -49,7 +49,7 @@ function newsCard(item: NewsItem) {
   const image = imagePath
     ? `<img width="100%" loading="lazy" src="${imagePath}" alt="${escapeHtml(item.title || "Новость базы отдыха Ахьаца")}" />`
     : "";
-  const posted = formatDjangoDate(item.created, true);
+  const posted = escapeHtml(item.created);
 
   return `<div class="news_card">${title}${body}${image}<div style="padding-top: 10px">Опубликовано: ${posted}</div></div><hr style="width: 100%">`;
 }
@@ -58,9 +58,7 @@ function promotionCard(item: PromotionItem) {
   const title = item.title
     ? `<h5>${textWithLineBreaks(item.title)}</h5>`
     : "";
-  const expiry = item.time
-    ? formatDjangoDate(item.time, false)
-    : "";
+  const expiry = item.time ? escapeHtml(item.time) : "";
   const body = item.text
     ? `<p style="white-space: pre-wrap; word-break: break-word">${textWithLineBreaks(item.text)}</p>`
     : "";
@@ -70,22 +68,6 @@ function promotionCard(item: PromotionItem) {
     : "";
 
   return `<div class="news_card">${title}<div style="padding-top: 0px; padding-bottom: 10px">Акция действует до: ${expiry}</div>${body}${image}</div><hr style="width: 100%">`;
-}
-
-function formatDjangoDate(value: string, includeTime: boolean) {
-  const source = value.includes("T") ? value : value.replace(" ", "T");
-  const date = new Date(`${source}${/Z$|[+-]\d\d:\d\d$/.test(source) ? "" : "Z"}`);
-  const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Europe/Moscow",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    ...(includeTime ? { hour: "2-digit", minute: "2-digit", hourCycle: "h23" as const } : {}),
-  }).formatToParts(date);
-  const part = (type: Intl.DateTimeFormatPartTypes) =>
-    parts.find((entry) => entry.type === type)?.value ?? "";
-
-  return `${part("month")} ${part("day")} ${part("year")}${includeTime ? ` ${part("hour")}:${part("minute")}` : ""}`;
 }
 
 export function renderNewsItems() {
