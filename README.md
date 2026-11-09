@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# База отдыха «Ахьаца»
 
-## Getting Started
+Статический Next.js-сайт на TypeScript, App Router и GitHub Pages. Содержимое страниц заранее создаётся при `next build` и публикуется из папки `out/`; рабочий сервер и база данных не используются.
 
-First, run the development server:
+## Локальный запуск
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Для локальной проверки статического экспорта используйте `npm run build`. Готовый сайт появится в `out/`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Перенесённые маршруты
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/` — главная и действующий адаптивный виджет Bnovo.
+- `/about` — о базе отдыха.
+- `/info` — значение названия «Ахьаца».
+- `/gallery` — фотогалерея.
+- `/news/` — новости из `data/news.json`.
+- `/news/promotions` — акции из `data/promotions.json`.
+- `/review/` и `/review/success/` — форма отзыва и страница подтверждения.
 
-## Learn More
+Новости и акции редактируются вручную в JSON. Типы находятся в `lib/types.ts`; `lib/content.ts` формирует список карточек во время сборки. Изображения из Django `static/` перенесены без изменений в `public/static/`.
 
-To learn more about Next.js, take a look at the following resources:
+Изображение акции находится в `public/media/promotions/2025-05/2025-05-11/1000273323.jpg` и копируется в статический экспорт.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Bnovo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+На главной странице сохранён адаптивный модуль с исходным UID и параметрами, загружаемый в браузере из `widget.reservationsteps.ru`. В `components/BnovoWidget.tsx` также сохранён код второго Bnovo iframe-шаблона (`booking.html`), но Django не подключает этот шаблон ни к одной странице, поэтому он не отображается.
 
-## Deploy on Vercel
+Форма Django, её модель и обработчик исключены. Модуль Bnovo остаётся основным действующим способом бронирования. Перед публикацией проверьте его работу на домене GitHub Pages и в мобильном браузере.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Страница отзыва из свежих изменений Django перенесена как статическая форма. Она отправляет имя, текст и оценку методом `POST` на `https://functions.yandexcloud.net/d4eil8dthticklcmmvrn`; после успешного ответа открывается страница подтверждения. Код отдельной почтовой функции находится в `cloud-functions/review-handler/` и не входит в приложение Next.js или статический экспорт. В форме сохранена проверка-пример и антиспам-поле. Модель `Review` Django и база данных в Next.js не используются.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Для почтовой функции установите в окружении Yandex Cloud `SMTP_PASSWORD`. При необходимости задайте `SMTP_USER`, `REVIEW_EMAIL` и `ALLOWED_ORIGIN` (по умолчанию используются адрес из примера и `https://akhiatsaotdyh.ru`). Функция не развертывается GitHub Actions workflow сайта.
+
+## GitHub Pages
+
+`next.config.ts` использует `output: "export"` и `trailingSlash: true`. Пользовательский домен `akhiatsaotdyh.ru` задан в `public/CNAME`, поэтому `basePath` не установлен и пути к ресурсам начинаются с `/`. Workflow `.github/workflows/deploy.yml` собирает сайт и публикует `out/` при push в `master` или ручном запуске.
+
+Перед первым деплоем в настройках репозитория выберите **Settings → Pages → Build and deployment → GitHub Actions**. Запись `CNAME` должна совпадать с настроенным custom domain в GitHub Pages; проверьте также DNS домена. Фактический production-деплой не выполнялся.

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /idea-notes-api/
+Sitemap: https://akhiatsaotdyh.ru/sitemap.xml

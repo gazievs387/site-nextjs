@@ -1,0 +1,5 @@
+body { align-items: center; background: #f4f7f1; color: #243328; display: flex; font-family: Arial, sans-serif; justify-content: center; margin: 0; min-height: 100vh; padding: 24px; text-align: center; }
+    main { background: #fff; border-radius: 20px; box-shadow: 0 12px 34px #2034221f; max-width: 500px; padding: 42px 30px; }
+    h1 { margin-top: 0; }
+    a { background: #315b3d; border-radius: 10px; color: #fff; display: inline-block; font-weight: 700; padding: 14px 22px; text-decoration: none; }
+    a:hover { background: #264b31; }

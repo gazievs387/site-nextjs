@@ -1,0 +1,20 @@
+:root { color: #243328; background: #f4f7f1; font-family: Arial, sans-serif; }
+    * { box-sizing: border-box; }
+    body { align-items: center; display: flex; justify-content: center; margin: 0; min-height: 100vh; padding: 24px; }
+    main { background: #fff; border-radius: 20px; box-shadow: 0 12px 34px #2034221f; max-width: 580px; padding: 36px; width: 100%; }
+    h1 { font-size: 28px; margin: 0 0 10px; }
+    .intro { color: #627166; line-height: 1.5; margin: 0 0 26px; }
+    label, legend { display: block; font-weight: 700; margin-bottom: 9px; }
+    .field { margin: 0 0 22px; }
+    input[type="text"], input[type="number"], textarea { border: 1px solid #c8d2c9; border-radius: 10px; font: inherit; padding: 12px; width: 100%; }
+    textarea { min-height: 130px; resize: vertical; }
+    fieldset { border: 0; margin: 0; padding: 0; }
+    .stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; }
+    .stars input { height: 1px; opacity: 0; position: absolute; width: 1px; }
+    .stars label { color: #c7cdc8; cursor: pointer; font-size: 36px; line-height: 1; margin: 0 4px 0 0; }
+    .stars label:hover, .stars label:hover ~ label, .stars input:checked ~ label { color: #efad22; }
+    .captcha-question { background: #eef4eb; border-radius: 9px; display: inline-block; font-weight: 700; margin: 0 0 10px; padding: 9px 12px; }
+    .errorlist { color: #b42318; list-style: none; margin: 7px 0 0; padding: 0; }
+    button { background: #315b3d; border: 0; border-radius: 10px; color: #fff; cursor: pointer; font: inherit; font-weight: 700; padding: 14px 22px; width: 100%; }
+    button:hover { background: #264b31; }
+    @media (max-width: 480px) { main { padding: 25px 20px; } }

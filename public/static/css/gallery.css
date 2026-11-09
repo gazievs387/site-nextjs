@@ -1,0 +1,48 @@
+main {
+    width: 50%;
+    padding-top: 30px;
+    padding-bottom: 60px;
+    margin-left: 25%;
+}
+
+.social {
+    text-decoration: none;
+    color: black;
+}
+
+.images-wrapper {
+  display: grid; /* Используем CSS Grid для создания сетки */
+  grid-template-columns: repeat(3, 1fr); /* Создаем 3 колонки равной ширины */
+  gap: 5px; /* Расстояние между изображениями */
+  width: 100%; /* Контейнер занимает всю доступную ширину */
+  max-width: 900px; /* Опционально: ограничить максимальную ширину контейнера */
+  margin: 0 auto; /* Опционально: выровнять контейнер по центру */
+}
+
+.images-wrapper img {
+  display: block; /* Убираем лишнее пространство под изображением */
+  /* Изображение занимает всю ширину колонки */
+  border-radius: 5px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Обрезаем изображение, чтобы оно покрывало квадратное пространство */
+}
+
+.images-wrapper div {
+  position: relative;
+}
+
+.images-wrapper div::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+
+@media (max-width: 767px) { /*Mobile*/
+    main {
+        width: 96%;
+        margin-left: 2%;
+    }
+}

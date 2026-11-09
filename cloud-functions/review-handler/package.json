@@ -1,0 +1,13 @@
+{
+  "name": "akhiatsa-review-mailer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Yandex Cloud Function that emails reviews submitted from the static site.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "nodemailer": "10.4.0"
+  }
+}
