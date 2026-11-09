@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState, type FormEvent } from "react";
+import axios from "axios";
 
 const reviewFunctionUrl =
   "https://functions.yandexcloud.net/d4eil8dthticklcmmvrn";
@@ -50,23 +51,15 @@ export function ReviewForm() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(reviewFunctionUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          text: review,
-          rating: Number(rating),
-          captchaFirst: captcha[0],
-          captchaSecond: captcha[1],
-          captchaAnswer: answer,
-          website: String(formData.get("website") ?? ""),
-        }),
+      await axios.post(reviewFunctionUrl, {
+        name,
+        text: review,
+        rating: Number(rating),
+        captchaFirst: captcha[0],
+        captchaSecond: captcha[1],
+        captchaAnswer: answer,
+        website: String(formData.get("website") ?? ""),
       });
-
-      if (!response.ok) {
-        throw new Error("Review request failed");
-      }
 
       window.location.assign("/review/success/");
     } catch {
